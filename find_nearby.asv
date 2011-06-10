@@ -1,0 +1,7 @@
+%rajesh
+%roundoff the matrix passed to n digits after decimal
+function ro=find_nearby(x)
+n=4;
+N=10^n;
+ro=(round(x*N))/N
+end

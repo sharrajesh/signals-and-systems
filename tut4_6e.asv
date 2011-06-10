@@ -1,0 +1,22 @@
+%understanding amplitude modulation
+clear
+clc
+
+load ctftmod.mat
+fprintf('f1 = %d f2 = %d\n', f1, f2);
+
+%by multiplying x by cos(w1 t) we are going to move m1 to low freq and m2
+%and m3 to higher freq
+N=length(t);
+T=t(N);
+tau=T/N;
+X=tau*fftshift(fft(x));
+w=(0:N-1)*(2*pi/N);
+
+
+figure(1)
+gr=1; %graphic rows
+
+subplot(gr,1,1)
+plot(w,abs(X));
+

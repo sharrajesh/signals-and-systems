@@ -1,0 +1,81 @@
+
+prob8_4a
+
+ns=1/dt ; % we know within 1 sec we can represent only ns samples
+ns=fix(ns); % if ns came out to be fraction then we truncate it
+ty=[0:ns-1]*dt; % continuous time instants for one second
+y=zeros(1,ns); % preallocate y
+
+% fb is the number of bits or pulses per sec 
+% and if there are np samples per bit or pulse duration
+% 
+% maximum fb can be
+% fb=ns/np; 
+% fb=fix(fb); % if ns came out to be fraction then we truncate it
+fb=ns/np;
+fb=fix(fb); 
+
+% if there are fb number bits or pulses per sec then for each bit or pulse
+% we have (1/fb) secs 
+% and if in one sec can have maximum ns samples
+% maximum number of samples per bit that are available is nspb
+% if nspb came out to be fraction then we round off to next integer
+nspb=ns/fb;
+nspb=ceil(nspb); 
+
+y(1:+1+np-1)=p;
+b=1;
+for i=2:fb
+    b=b+nspb; % begining
+    e=b+np-1; % end
+    if e > ns
+        e=ns;
+        y(b:e)=y(b:e)+p(1:e-b+1);
+        break;
+    else
+        y(b:e)=y(b:e)+p;
+    end
+end
+
+% store first value
+y1=y;
+
+y=zeros(1,ns); % zeros out y again
+fb=10; % fb is the number of bits per sec
+fb=fix(fb);
+
+% maximum number of samples per bit that are available 
+nspb=ns/fb; 
+nspb=ceil(nspb);
+
+y(1:+1+np-1)=p;
+b=1;
+for i=2:fb
+    b=b+nspb; % begining
+    e=b+np-1; % end
+    if e > ns
+        e=ns;
+        y(b:e)=y(b:e)+p(1:e-b+1);
+        break;
+    else
+        y(b:e)=y(b:e)+p;
+    end
+end
+
+% store second value
+y2=y;
+
+figure(2)
+clf
+
+subplot(211)
+stem(ty,y1);
+
+subplot(212)
+stem(ty,y2);
+
+subplot(212)
+stem(ty,y2);
+
+return
+

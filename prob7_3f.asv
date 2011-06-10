@@ -1,0 +1,54 @@
+% first run prob7_3a b c d.m
+clc
+
+% test of fft and ifft
+x1i=ifft(X1);
+X1i=fft(x1i,N);
+% note that X1i should be same as X1
+
+hint=0.5*sinc(0.5*(-32:32));
+ham=hamming(65);
+h=hint.*ham';
+H=fft(h,N);
+
+% in example 7.3d we have seen that x1 was aliased after downsampling
+% hence we will try to filter x1, there are 2 way we could go ahead
+% by conv of x1 and h or by multipling X1 and H and then ifft
+xfc=conv(x1,h);
+Xfc=fft(xfc,N);
+
+xdf1=x1(1:M:length(x1));
+Xd1=fft(xd1,N);
+
+figure(5)
+clf
+
+subplot(411)
+plot(x1);
+
+subplot(412)
+plot([1:length(x1)],x1i(1:length(x1))); %careful here 
+
+subplot(413)
+plot(wk,abs(X1));
+
+subplot(414)
+plot(wk,abs(X1i));
+
+figure(6);
+clf
+
+subplot(611)
+plot(h);
+
+subplot(612)
+plot(wk,abs(H));
+
+subplot(613)
+plot(xfc);
+
+subplot(614)
+plot(wk,abs(Xfc));
+
+
+return 

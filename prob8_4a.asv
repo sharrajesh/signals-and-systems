@@ -1,0 +1,14 @@
+
+clear
+clc
+
+T=0.1; % can be used at the time period of each pulse
+dt=T/10; % the time interval when the samples may be taken
+
+t=[-T:dt:T];
+np=length(t);
+
+p=zeros(1,np);
+for i=1:length(t)
+    if t < T
+        p

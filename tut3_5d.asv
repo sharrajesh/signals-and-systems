@@ -1,0 +1,17 @@
+x1=[ones(1,8)]
+nx1=[0:length(x1)-1]
+
+x2=[ones(1,8) zeros(1,8)]
+nx2=[0:length(x2)-1]
+
+x3=[ones(1,8) zeros(1,24)]
+nx3=[0:length(x3)-1]
+
+N=64
+for n=1:64
+    r=rem(n,length(x1))
+        x(n)=x1(r)
+    end
+end
+
+plot(x)

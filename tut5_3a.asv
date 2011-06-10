@@ -1,0 +1,17 @@
+clear
+clc
+
+a1=1;
+b1=[1 0 0 0];
+N=1024;
+
+[H1 w1]=freqz(b1,a1,N);
+
+figure(1)
+clf
+subplot(211)
+plot(w1,abs(H1));
+
+su
+
+return

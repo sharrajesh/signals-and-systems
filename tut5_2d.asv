@@ -1,0 +1,27 @@
+clear
+clc
+
+load touch.mat
+
+% sound(x1,8192)
+% pause(1)
+
+N=2048;
+w=[0:N-1]*2*pi/N;
+
+figure(1)
+
+off=1;
+for i=0:6
+    d(i+1,:)=x1(off:off+999);
+    X(i+1,:)=fft(d(i+1,:),N);
+    off=off+1000+100;
+end
+
+
+subplot(711)
+X1=fftshift(fft(x1));
+plot(abs(X1));
+a=axis
+
+grid

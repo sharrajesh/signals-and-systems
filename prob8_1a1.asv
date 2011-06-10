@@ -1,0 +1,43 @@
+
+clear
+clc
+
+N=20;
+n=[-N:N];
+
+Nw=2*N+1;
+w=linspace(-pi,pi,Nw);
+
+% building the freq responce of the system
+H=zeros(1,Nw);
+for i=1:Nw
+    if (w(i) < 0)
+        H(i)=j;
+    else (w(i) >= 0)
+        H(i)=-j;
+    end
+end
+
+h=fftshift(ifft((H)));
+
+H1=fftshift(fft(h));
+
+% to produce a shift in time domain by ndash
+ndash=N/2;
+w0=(2*pi)/Nw;
+Hs=H*exp(-j*w0*ndash);
+
+figure(1)
+clf
+
+subplot(311)
+plot(real(h));
+
+subplot(312)
+plot(w,abs(H1));
+
+subplot(313)
+plot(w,angle(H1));
+
+return
+

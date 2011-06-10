@@ -1,0 +1,63 @@
+clear
+clc
+
+load plus
+colormap(gray);
+image(64*x);
+
+%cut off freq in radians per second
+wc=0.4;
+%orders to find the filter for
+n1=10;
+n2=4;
+n3=12;
+
+%let N be the num of places where the freq samples are desired
+N=50;
+
+%for order n1 and cutoff wc butter will return the coefficients for
+%the difference equation
+%
+%note that butter will have infinite length impulse response
+%
+%for more help doc butter
+[b1,a1]=butter(n1,wc);
+[H1,w1]=freqz(b1,a1,N,'whole');
+
+%remez is same firpm
+%doc firpm
+%note that both of these functions use Parks McClellan 
+%algorithm underneath 
+%
+%b = firpm(n,f,a)
+%
+% Vectors f and a specify the frequency-magnitude characteristics of the 
+% filter.
+% 
+% *
+%  f is a vector of pairs of normalized frequency points, 
+%  The frequencies must be in increasing order.
+% *
+% a is a vector containing the desired amplitudes at the points 
+% specified in f.
+% 
+a2=1;
+b2=remez(n2,[0 wc-0.04 wc+0.04 1],[1 1 0 0]);
+[H2,w2]=freqz(b1,a1,N,'whole');
+
+a3=1;
+b3=remez(n3,[0 wc-0.04 wc+0.04 1],[1 1 0 0]);
+[H3,w3]=freqz(b1,a1,N,'whole');
+
+figure(1)
+clf
+
+ste(w1,abs(H1));
+grid
+
+return
+
+plot(w1,H1,'r',w2,H2,'b',w3,H3,'g');
+legend('butter','remez for n2=4','remez for n3=12')
+
+return

@@ -1,0 +1,28 @@
+clear
+clc
+
+syms wc
+
+% for first order stable butterworth filter the system function is
+% defined on page p705
+b=[wc];
+a=[1 wc];
+
+% for Wc=10*pi
+Wc=10*pi;
+b1=subs(b,wc,Wc);
+a1=subs(a,wc,Wc);
+
+w=linspace(0,1000);
+
+H1=freqs(b1,a1,w);
+
+% for single order butterworth filter, the zeros(z1), poles(p1) and scalar
+% constant(k1) can be found as followsss
+[z1,p1,k1]=butter(1,Wc,'s');
+
+figure(1)
+clf
+plot(w,abs(H1));
+
+return

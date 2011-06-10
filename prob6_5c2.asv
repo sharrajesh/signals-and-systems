@@ -1,0 +1,18 @@
+%run prob6_5a.m
+
+s11=[s1;zeros(437,1)];
+s21=[s2;zeros(437,1)];
+s31=[s3;zeros(437,1)];
+
+S1=fft(s11);
+S2=fft(s21);
+S3=fft(s31);
+
+w11=[0:511]*2*pi/512;
+
+figure(5)
+clf
+
+plot(w11,s11,'r',w11,s21,'g',
+return
+

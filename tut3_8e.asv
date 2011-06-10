@@ -1,0 +1,70 @@
+%note that ifft and fft for periodic waves take only on period worth of 
+%data
+
+ak=[-1/2 zeros(1,7) 3/4 0 3/4 zeros(1,7) -1/2 0]
+a20=periodic(ak,-9,0,19)
+a100=periodic(a20,0,0,99)
+
+x1_20=20*ifft(a20)
+x1_100=periodic(x1_20,0,0,99)
+
+w20=[0*2*pi/20:2*pi/20:19*2*pi/20]
+w100=[0*2*pi/20:2*pi/20:99*2*pi/20]
+
+a1=[1 -0.8]
+b1=[1]
+
+a2=[1 0.8]
+b2=[1]
+
+y1_20=filter(b1,a1,x1_20)
+ay1_20=1/20*fft(y1)
+y1_100=periodic(y1_20,0,0,99)
+ay1_100=periodic(ay1_20,0,0,99)
+
+y2_20=filter(b2,a2,x1_20)
+ay2_20=1/20*fft(y2_20)
+y2_100=periodic(y2_20,0,0,99)
+ay2_100=periodic(ay2_20,0,0,99)
+
+%plotting time domain
+figure
+
+subplot(3,1,1)
+stem(abs(x1_100))
+xlabel('n')
+ylabel('x1_100')
+grid
+
+subplot(3,1,2)
+stem(abs(y1_100))
+xlabel('n')
+ylabel('y1_100')
+grid
+
+subplot(3,1,3)
+stem(abs(y2_100))
+xlabel('n')
+ylabel('y2_100')
+grid
+
+%plotting frequency domain
+figure
+
+subplot(3,1,1)
+stem(w100,abs(a100))
+xlabel('w')
+ylabel('a100')
+grid
+
+subplot(3,1,2)
+stem(w100,abs(ay1_100))
+xlabel('w')
+ylabel('ay1_100')
+grid
+
+subplot(3,1,3)
+stem(w20,abs(ay2))
+xlabel('w')
+ylabel('ay2')
+grid

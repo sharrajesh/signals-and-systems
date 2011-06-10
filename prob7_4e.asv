@@ -1,0 +1,69 @@
+
+clc
+
+% cut freq
+fc=1000;
+wc=2*pi*fc;
+
+
+
+return
+
+clear
+clc
+
+% sampling frequency
+fs=2048;
+
+% time period of each sample
+T=1/fs;
+
+% since t varies between 0 and t0
+t0=0.5;
+t=linspace(0,t0,t0/T);
+
+% band of frequencies on which signal is spread across
+fmin=2000;
+omegamin=2*pi*fmin;
+fmax=3000;
+omegamax=2*pi*fmax;
+
+syms t_s
+x_t_s = cos(omegamin*t_s+(omegamax-omegamin)*(t_s^2)*1/(2*t0));
+omega_inst_t_s=omegamin+(omegamax-omegamin)*t_s/t0;
+
+x=subs(x_t_s,t_s,t);
+omega_inst=subs(omega_inst_t_s,t_s,t);
+
+% note that to left shift the signal in frequency domain by w0 we have to
+% multiply the signal in time domain by exp(-j*w0*n)
+% hence in hertz we have to left shift by f0=2500
+f0=2500;
+w0=2*pi*f0;
+
+% modulation
+% note that to left shift we have to multiply exp(j*w0*t)
+% note the use of t instead of n
+x1=exp(j*w0*t).*x;
+
+X1=fftshift(fft(x1,fs));
+
+% The FFT contains information between 0 and fs and same as in
+% prob7_4_fft_test.m but after you shift it to middle
+% freq in hertz
+wh=(fs/2)*linspace(-1,1,fs);
+% freq in radians per sec
+wrps=2*pi*wh;
+
+figure(4);
+clf
+
+subplot(211)
+plot(wh,abs(X1));
+xlabel('x axis in hertz');
+
+subplot(212)
+plot(wrps,abs(X1));
+xlabel('x axis radians per sec');
+
+return

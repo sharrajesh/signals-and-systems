@@ -1,0 +1,15 @@
+%synthesizing signals with dtfs 
+a=[1 0 exp(j*(pi/4)) 0 2*exp(j*(pi/3))]
+na=[0:4]
+N=length(a)
+
+for n=0:N-1
+    x(n+1)=0
+    for k=0:N-1
+        x(n+1)=x(n+1)+a(k+1)*exp(j*k*(2*pi/N)*n)
+    end
+end
+
+xifft=N*ifft(a)
+
+plot(na,real(x), 

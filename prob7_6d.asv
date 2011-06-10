@@ -1,0 +1,40 @@
+
+clear
+clc
+
+l=256;
+n=[-l:l];
+
+N=511;
+w=boxcar(N);
+
+% note that to get the perfect symmetry around nd we have to have
+% N=2 nd + 1
+% => that nd=511-1/2=255
+
+% let us assume delay d is 255
+d=(N-1)/2;
+
+% then new n after delay d is
+nd=n-d;
+
+% h descrete after delay; preallocate space for better efficiency
+hdd=zeros(1,length(nd));
+for i=1:length(nd)
+    if (nd(i)==0)
+        hdd(i)=0;
+    else
+        hdd(i)=((-1)^nd(i))/nd(i);
+    end        
+end
+
+% prev hdd is defined for n over
+n1=n+d;
+
+figure(3)
+clf
+
+plot(n1,hdd);
+title('delayed hdd')
+
+return

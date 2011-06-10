@@ -1,0 +1,15 @@
+% run prob6_4ab.m
+n=8192;
+wn=[0:n-1]*2*pi/n;
+
+X=fft(x,n);
+Xn=fft(xnoise,n);
+
+
+figure(2)
+clf
+
+subplot(221)
+plot(
+
+return

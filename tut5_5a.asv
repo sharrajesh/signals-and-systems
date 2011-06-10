@@ -1,0 +1,11 @@
+clear
+clc
+
+N=64;
+
+xn=(-3/4)^n');
+
+x=subs(xn,'n'
+figure(1)
+plot(x
+return;

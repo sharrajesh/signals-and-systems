@@ -1,0 +1,18 @@
+%run prob6_5a.m and prob6_5b.m
+w1=pi/4;
+w2=pi*2/4;
+w3=pi*3/4;
+
+cos(w1
+
+return;
+
+[tau,w]=grpdelay(b,a,N,'whole');
+
+figure(3)
+clf
+
+plot(w,tau);
+title('group delay tau per freq');
+
+return 

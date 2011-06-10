@@ -1,0 +1,10 @@
+%this returns the synthesis equation by taking in values of a
+function x=synth1(a,k)
+syms t T;
+
+b=k(1);
+x=0;
+for k1=k
+    x=x+a(+1)*exp(i*k*(2*pi/T)*t);
+end
+end

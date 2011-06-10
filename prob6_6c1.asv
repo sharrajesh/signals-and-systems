@@ -1,0 +1,20 @@
+clc
+
+e1=xhat2-djia(1:N);
+e1s=e1.*e1;
+
+% by eq 6.29 p121 here x needs to xhat1 or xhat2 
+e21=xhat1(p+1:N)+X*a;
+e2=[zeros(p,1);e21];
+e2s=e2.*e2;
+
+figure(3)
+clf
+
+subplot(211)
+plot(week(p+1:N),e1s(p+1:N));
+
+subplot(212)
+plot(week(p,e2s);
+
+return

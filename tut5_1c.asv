@@ -1,0 +1,17 @@
+%proper use of dtftsinc function
+clear
+clc
+
+N=100;
+w=[-N/2:49].*2*pi/N;
+x=[ones(1,11)];
+
+X1=fft(x,N);
+X=fftshift();
+
+figure(3)
+clf
+subplot(211)
+plot(w(1:length(w)-1),abs(X))
+subplot(212)
+plot(w(1:length(w)-1),angle(X))

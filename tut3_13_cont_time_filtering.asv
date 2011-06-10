@@ -1,0 +1,24 @@
+clear
+clc
+
+syms w hw
+
+hw=1/(0.1*j*w+1);
+
+rp=real(hw);
+ip=imag(hw);
+
+mag = abs(hw);
+phs = atan(ip/rp); %note that angle does not work with symbolic objects
+
+figure
+
+r=[-8*pi 8*pi];
+
+subplot(2,1,1);
+ezplot(mag,r); % it seems clear that 
+grid
+
+subplot(2,1,2)
+ezplot(phs,r);
+grid

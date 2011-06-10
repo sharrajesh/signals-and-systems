@@ -1,0 +1,62 @@
+% time shift delay
+clc
+
+l=256;
+n=[-l:l];
+
+% preallocate space for better efficiency
+hd=zeros(1,length(n));
+
+for i=1:length(n)
+    if (n(i)==0)
+        hd(i)=0;
+    else
+        hd(i)=((-1)^n(i))/n(i);
+    end        
+end
+
+% let us assume delay d is
+d=10;
+
+% then new n after delay d is
+nd=n-d;
+
+% h descrete after delay; preallocate space for better efficiency
+hdd=zeros(1,length(nd));
+for i=1:length(nd)
+    if (nd(i)==0)
+        hdd(i)=0;
+    else
+        hdd(i)=((-1)^nd(i))/nd(i);
+    end        
+end
+
+% negative offset
+negoff=l+1;
+
+% to see the symmetry 
+% plot only smaller range r
+% but to see symmetry plot twice of d both side of 0
+r=(-2*d+negoff:2*d+negoff);
+
+figure(2)
+clf
+
+subplot(411)
+plot(n,hd);
+title('hdd')
+
+subplot(412)
+stem(n(r),hd(r));
+title('small range of hd')
+
+subplot(413)
+plot(n,hdd);
+grid minor
+title('delayed hdd')
+
+subplot(414)
+stem(n(r),hdd(r));
+title('small range of delayed hdd')
+
+return

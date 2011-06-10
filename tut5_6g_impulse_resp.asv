@@ -1,0 +1,13 @@
+%first run tut5_6d.m
+
+x=[1 zeros(1,31)];
+
+h=filter(b,a,x)
+
+%note that here h is the impulse response of the complete system
+syms n
+
+h1=3*(1/4)^n
+
+h1s=subs(h1,n,[0:31])
+return;

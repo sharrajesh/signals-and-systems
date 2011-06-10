@@ -1,0 +1,102 @@
+
+clear
+clc
+
+% cutoff freq
+W=pi/2;
+
+
+% time domain
+N=32;
+n=[-N:N];
+
+% by table 5.2 signals and systems page392
+syms n0
+x_n0=sin(W*n0)/(pi*n0);
+x=subs(x_n0,n0,n);
+
+% we know that at n=0 use l'hospitals rules
+% when n0=0 diff both num and deno
+% x_n0=W*cos(W*n0)/pi
+% x_0=W/pi
+nan=find(isnan(x));
+x(nan)=W/pi;
+
+% note that after fftshift and fft X will always be defined from -pi to pi
+w=linspace(-pi,pi,length(x));
+X=fftshift(fft(x));
+
+% since l is > length of x l-length(x) num of zeros will be appended first
+% before fft will be calculated
+l=101;
+wl=linspace(-pi,pi,l);
+Xl=fftshift(fft(x,l));
+
+% since length(x) is odd hence we have to do ifftshift first
+% also note that after ifftshift and ifft x will always be defined from 
+% from the same range original x was input from i.e. -N:N
+xi=ifft(ifftshift(X));
+xil=ifft(ifftshift(Xl));
+
+% to do a time shift by alpha
+alpha=N;
+Xs=X.*exp(-j*w*alpha);
+xsi=ifft(ifftshift(Xs));
+
+Xsl=Xl.*exp(-j*wl*alpha);
+xsil=ifft(ifftshift(Xsl));
+
+figure(1)
+clf
+
+subplot(411)
+plot(n,x);
+title('x');
+
+subplot(412)
+plot(w,abs(X));
+title('abs(X)');
+
+subplot(413)
+plot(w,unwrap(angle(X)));
+title('uwrapped angle X');
+
+subplot(414)
+plot(n,real(xi));
+title('xi');
+
+figure(2)
+clf
+
+subplot(411)
+plot(wl,abs(Xl));
+title('abs(Xl)');
+
+subplot(412)
+plot(w,unwrap(angle(X)));
+title('uwrapped angle Xl');
+
+subplot(413)
+plot(real(xil));
+title('xil');
+
+subplot(414)
+plot(n,real(xil(1:length(n))));
+title('xil');
+
+figure(3)
+clf
+
+subplot(311)
+plot(w,abs(Xs));
+title('abs(Xs)');
+
+subplot(312)
+plot(w,unwrap(angle(Xs)));
+title('uwrapped angle Xs');
+
+subplot(313)
+plot(n,real(xsi));
+title('xsi');
+
+return

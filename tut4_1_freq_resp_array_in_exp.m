@@ -1,0 +1,27 @@
+clear
+clc
+
+r=[0 3*pi];
+
+figure(1)
+a=[1 3];
+b=[1];
+freqs(b,a)
+
+figure(2)
+w=logspace(-1,1,100); % this will fill w with 10^-1 to 10^1
+% for k=1:length(w)
+%     H(k)=3/(3+j*w(k));
+% end
+H=3./(3+j*w); % better way to represent freq resp.
+
+mag=abs(H);
+ang=angle(H);
+
+subplot(211)
+loglog(w,mag);
+grid
+
+subplot(212)
+loglog(w,ang); % does the log plotting
+grid

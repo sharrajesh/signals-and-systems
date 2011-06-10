@@ -1,0 +1,22 @@
+% first run the tut5_4a.m and then tut5_4b
+
+A=exp(-j
+return
+figure(2)
+clf
+
+subplot(211)
+plot(w,Ha);
+ro=axis; %range original
+rn=[-3*pi 3*pi ro(3:4)];%range new
+axis(rn);
+grid
+
+subplot(212)
+plot(ws,Hp);
+ro=axis; %range original
+rn=[-3*pi 3*pi ro(3:4)];%range new
+axis(rn);
+grid
+
+return;

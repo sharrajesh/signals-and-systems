@@ -1,0 +1,55 @@
+
+clear
+clc
+
+syms n
+
+x1_n=(sin(0.4*pi*(n-62))/(0.4*pi*(n-62)))^2;
+x2_n=(sin(0.2*pi*(n-62))/(0.2*pi*(n-62)))^2;
+
+nr=[0:124];
+
+x1=subs(x1_n,n,nr);
+x1((length(x1)+1)/2)=1;
+
+x1s=(sinc(0.4*pi*(
+
+x2=subs(x2_n,n,nr);
+x2((length(x2)+1)/2)=1;
+
+figure(1)
+clf
+
+subplot(211)
+plot(nr,x1);
+
+subplot(212)
+plot(nr,x2);
+
+return
+
+clf
+
+% see page 20 where conv is defined
+Nx=length(xe2);
+nx=-(Nx-1)/2;
+
+Nh=length(hlin);
+nh=-(Nh-1)/2;
+
+% the conv will go from nx+nh to nx+nh+Nx+Nh-2
+ny=nx+nh;
+Ny_max=nx+Nx-1+nh+Nh-1;
+Ny=Nx-1+Nh-1;
+
+% range for y2
+y2r=[ny:Ny_max];
+y2=conv(xe2,hlin);
+
+figure(4)
+clf
+
+stem(y2r,y2)
+% stem(y2)
+
+return

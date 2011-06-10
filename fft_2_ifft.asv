@@ -1,0 +1,41 @@
+
+syms n0
+x_n0=(0.5)^n0;
+n=[-10:50];
+
+wpp=linspace(-pi,pi,length(n));
+w02p=linspace(0,2*pi,length(n));
+
+x=subs(x_n0,n0,n);
+X=fftshift(fft(x));
+
+alpha=10;
+Xalpha=X.*exp(-j*wpp*alpha);
+
+xi=ifft(ifftshift(X));
+xalpha=ifft(ifftshift(Xalpha));
+
+subplot(411)
+plot(n,x);
+title('n vs x')
+
+subplot(412)
+plot(wpp,abs(X));
+title('wpp vs abs X')
+
+subplot(413)
+plot(wpp,angle(X));
+title('wpp vs angle X')
+
+subplot(414)
+plot(xi);
+title('xi')
+
+subplot(412)
+plot(wpp,abs(Xalpha));
+
+subplot(413)
+plot(wpp,angle(Xalpha));
+
+subplot(414)
+plot(xalpha);

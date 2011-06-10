@@ -1,0 +1,65 @@
+clear
+clc
+
+p=hamming(75);
+% wvtool(p);
+
+a=[1 -1.1172 0.9841 -0.4022 0.2247];
+b=[0.2247 -0.4022 0.9841 -1.1172 1];
+
+N=1024;
+[H,w]=freqz(b,a,N,'whole');
+
+figure(1)
+clf
+freqz(b,a,N,'whole');
+
+figure(2)
+clf
+
+subplot(211)
+plot(w,abs(H));
+axis([0 2*pi -2 2])
+grid
+
+subplot(212)
+plot(w,unwrap(angle(H)))
+
+return
+
+% run prob6_4ab.m
+n=8192;
+wn=[0:n-1]*2*pi/n;
+
+X=fft(x,n);
+Xn=fft(xnoise,n);
+
+
+figure(3)
+clf
+
+subplot(231)
+plot(wn,abs(X));
+title('abs(X)');
+
+subplot(232)
+plot(wn,angle(X));
+title('angle(X)');
+
+subplot(233)
+plot(wn/pi,unwrap(angle(X)));
+title('unwrapped angle(X) in pi rad/sec');
+
+subplot(234)
+plot(wn,abs(Xn));
+title('abs(Xn)');
+
+subplot(235)
+plot(wn,angle(Xn));
+title('angle(Xn)');
+
+subplot(236)
+plot(wn/pi,unwrap(angle(Xn)));
+title('unwrapped angle(Xn) in pi rad/sec');
+
+return

@@ -1,0 +1,11 @@
+clear
+clc
+
+for n=0:50
+    x=
+x=
+
+figure(3)
+clf
+
+return

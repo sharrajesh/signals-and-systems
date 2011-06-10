@@ -1,0 +1,43 @@
+
+clear
+clc
+
+t=linspace(0,1,500);
+w=linspace(-pi,pi,500);
+
+% carrier frequency
+wc=40*pi;
+
+% carrier to be added to make sure x is always positive
+A=1;
+
+% modulating signal x
+m=0.5; % maximum value of the modulating signal
+wm=10*pi; %maximum freq content inside the modulating signal
+x=m*cos(wm*t);
+X=fftshift(fft(x));
+
+% carrier signal c
+c=cos(wc*t);
+C=fftshift(fft(c));
+
+y=(A+x).*c;
+Y=fftshift(fft(y));
+
+figure(1)
+clf
+
+plot(t,x)
+subtitle('t vs x');
+
+plot(t,c)
+subtitle('t vs x');
+
+plot(t,y)
+subtitle('t vs y');
+
+plot(w,abs(X))
+subtitle('w vs abs X');
+
+plot(w,unwrap(angle(X)))
+subtitle('w vs abs X');

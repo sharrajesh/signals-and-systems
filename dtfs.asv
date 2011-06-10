@@ -1,0 +1,19 @@
+function a=dtfs(x,n_init)
+%note that here x is periodic but it start from n_init
+N=length(x)
+nx=[n_init:n_init+N-1]
+
+%note that here we are trying to xp which is periodic and start from 0
+% -8 -9 -7 -6 -5 -4 -3 -2 -1 0 1 2 3 4 5 6 7 8
+%     1  1  1  2  2  1  1  1 2 2 1 1 1 2 2  
+ns = 0
+ne = 3
+for n=ns:ne
+    b = abs(ns-n_init)
+    r = rem(ns-n_init, N)
+    i = r - n_init
+    xp(n+1)=x(i+1)
+end
+
+a=1/N*fft(xp)
+end

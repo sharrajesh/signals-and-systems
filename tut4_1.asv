@@ -1,0 +1,17 @@
+clear
+clc
+
+r=[0 3*pi];
+
+% figure
+% a=[1 3];
+% b=[1];
+% freqs(b,a)
+
+% figure
+w=[0:.1:3*pi];
+% syms w H
+H=3/(3+j*w)
+mag=abs(H)
+% ezplot(mag,r); %better to bode plot here
+bodeplot(mag);

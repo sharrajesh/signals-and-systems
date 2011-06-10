@@ -1,0 +1,23 @@
+% understanding about fftshift
+% 
+clear
+clc
+
+load splat;
+
+y=y(1:8192);
+
+N=8192;
+fs=8192;
+
+Y_jw=fft(y);
+w=(0:N-1)*(2*pi/N);
+
+figure(1)
+clf
+subplot(211)
+plot(w,real(Y_jw));
+
+subplot(212)
+plot(w,imag(Y_jw));
+%sound(y,Fs);

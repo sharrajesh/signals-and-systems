@@ -1,0 +1,36 @@
+% first run prob6_3a.m
+
+% note that to get this high pass filter, we can get it by
+%
+% first modulating the filter from prob6_3a to w < 4pi/5
+% then we subtract it from an all pass filter
+
+% for the filter H to be modulated from pi/5 to 4pi/5
+w0=-3*pi/5;
+h1=exp(j*w0*n1).*h(n1);
+
+% for all pass filter the time domain value is delta(n)
+del=zeros(l);
+del((l-1)/2)=1;
+
+return
+
+figure(2)
+
+subplot(411)
+plot(n1,h)
+title('impulse responce');
+
+subplot(412)
+plot(n1,hs)
+title('impulse responce after analysis');
+
+subplot(413)
+plot(w,abs(H));
+title('magnitude H')
+
+subplot(414)
+plot(w,angle(H));
+title('phase H')
+
+return

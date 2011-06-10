@@ -1,0 +1,249 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      -->
+      <title>prob7_4_fft_test</title>
+      <meta name="generator" content="MATLAB 7.7">
+      <meta name="date" content="2010-01-10">
+      <meta name="m-file" content="prob7_4_fft_test"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head>
+   <body>
+      <div class="content"><pre class="codeinput"><span class="comment">% for fft look under fft.pdf under engineering docs</span>
+clear
+clc
+
+<span class="comment">% xxxxx</span>
+<span class="comment">% note:</span>
+<span class="comment">% also see page 75 computer exploration book</span>
+<span class="comment">%</span>
+<span class="comment">% where N samples were taken from x which was non zero for only T secs</span>
+<span class="comment">% then timeperiod for each sample tau=T/N</span>
+<span class="comment">%</span>
+<span class="comment">% it also means that max amount of freq that can detected in this</span>
+<span class="comment">% sampling is 2pi/tau</span>
+<span class="comment">%</span>
+<span class="comment">% which implies w is taken from 2*pi*k/(T=N*tau) where k varies from 0:N</span>
+<span class="comment">% i.e it will be 0,2pi/N*tau=2pi/T,2pi2/N*tau = 2pi2/T,</span>
+<span class="comment">% 2piN/T=2piN/N*tau=2pi/tau</span>
+<span class="comment">%</span>
+<span class="comment">% where 2pi/tau is sample freq</span>
+<span class="comment">%</span>
+<span class="comment">% wk varies as 2pik/(T=N*tau) for  0&lt;=k&lt;=N</span>
+<span class="comment">%</span>
+<span class="comment">% for descrete times we do not consider the effect of intermediat time values</span>
+<span class="comment">% we take tau to be equal to 1</span>
+<span class="comment">%</span>
+<span class="comment">% hence wk varies from 0,2pi/N,2pi2/N...2pi</span>
+<span class="comment">%</span>
+<span class="comment">% w=2pik/N for 0&lt;=k&lt;=N</span>
+
+Fs = 1000;                    <span class="comment">% Sampling frequency</span>
+T = 1/Fs;                     <span class="comment">% Sample time</span>
+L = 1000;                     <span class="comment">% Length of signal</span>
+t = (0:L-1)*T;                <span class="comment">% Time vector</span>
+
+<span class="comment">% Sum of a 50 Hz sinusoid and a 120 Hz sinusoid</span>
+y = 0.7*cos(2*pi*50*t) + cos(2*pi*120*t);
+
+<span class="comment">% Next power of 2 from length of y</span>
+nfft = 2^nextpow2(L);
+
+<span class="comment">% Normalized fft =&gt; fft/N returns ak see page 47 on exploration book</span>
+Y = fft(y,nfft)/L;
+
+<span class="comment">% shifted y</span>
+Ys = fftshift(fft(y,nfft))/L;
+
+<span class="comment">% The FFT contains information between 0 and fs from the fft.pdf in</span>
+<span class="comment">% engineering docs folder on desktop</span>
+f = (Fs)*linspace(0,1,nfft);
+
+<span class="comment">% to get only one side of the spectrum</span>
+fhalf=(Fs/2)*linspace(0,1,nfft/2+1);
+
+<span class="comment">% shifted frequencies</span>
+fs_half=(Fs/2)*linspace(-1,1,nfft);
+
+figure(1)
+clf
+
+subplot(411)
+plot(t(1:50),y(1:50))
+title(<span class="string">'Sum of sinusoid signals'</span>)
+xlabel(<span class="string">'time (seconds)'</span>)
+
+subplot(412)
+plot(f,abs(Y))
+title(<span class="string">'Full Amplitude Spectrum of y(t)'</span>)
+xlabel(<span class="string">'Frequency (Hz)'</span>)
+ylabel(<span class="string">'|Y(f)|'</span>)
+
+<span class="comment">% Plot single-sided amplitude spectrum.</span>
+subplot(413)
+plot(fhalf,abs(Y(1:nfft/2+1)))
+title(<span class="string">'Single-Sided Amplitude Spectrum of y(t)'</span>)
+xlabel(<span class="string">'Frequency (Hz)'</span>)
+ylabel(<span class="string">'|Y(f)|'</span>)
+
+subplot(414)
+plot(fs_half,abs(Ys))
+title(<span class="string">'Double-Sided Amplitude Spectrum of y(t)'</span>)
+xlabel(<span class="string">'Frequency (Hz)'</span>)
+ylabel(<span class="string">'|Y(f)|'</span>)
+
+<span class="keyword">return</span>
+</pre><img vspace="5" hspace="5" src="prob7_4_fft_test_01.png" alt=""> <p class="footer"><br>
+            Published with MATLAB&reg; 7.7<br></p>
+      </div>
+      <!--
+##### SOURCE BEGIN #####
+% for fft look under fft.pdf under engineering docs 
+clear
+clc
+
+% xxxxx 
+% note: 
+% also see page 75 computer exploration book
+% 
+% where N samples were taken from x which was non zero for only T secs
+% then timeperiod for each sample tau=T/N
+% 
+% it also means that max amount of freq that can detected in this 
+% sampling is 2pi/tau
+% 
+% which implies w is taken from 2*pi*k/(T=N*tau) where k varies from 0:N
+% i.e it will be 0,2pi/N*tau=2pi/T,2pi2/N*tau = 2pi2/T,
+% 2piN/T=2piN/N*tau=2pi/tau
+% 
+% where 2pi/tau is sample freq
+% 
+% wk varies as 2pik/(T=N*tau) for  0<=k<=N
+% 
+% for descrete times we do not consider the effect of intermediat time values
+% we take tau to be equal to 1
+% 
+% hence wk varies from 0,2pi/N,2pi2/N...2pi
+% 
+% w=2pik/N for 0<=k<=N
+
+Fs = 1000;                    % Sampling frequency
+T = 1/Fs;                     % Sample time
+L = 1000;                     % Length of signal
+t = (0:L-1)*T;                % Time vector
+
+% Sum of a 50 Hz sinusoid and a 120 Hz sinusoid
+y = 0.7*cos(2*pi*50*t) + cos(2*pi*120*t); 
+
+% Next power of 2 from length of y
+nfft = 2^nextpow2(L); 
+
+% Normalized fft => fft/N returns ak see page 47 on exploration book
+Y = fft(y,nfft)/L; 
+
+% shifted y
+Ys = fftshift(fft(y,nfft))/L;
+
+% The FFT contains information between 0 and fs from the fft.pdf in
+% engineering docs folder on desktop
+f = (Fs)*linspace(0,1,nfft);
+
+% to get only one side of the spectrum
+fhalf=(Fs/2)*linspace(0,1,nfft/2+1);
+
+% shifted frequencies
+fs_half=(Fs/2)*linspace(-1,1,nfft);
+
+figure(1)
+clf
+
+subplot(411)
+plot(t(1:50),y(1:50))
+title('Sum of sinusoid signals')
+xlabel('time (seconds)')
+
+subplot(412)
+plot(f,abs(Y))
+title('Full Amplitude Spectrum of y(t)')
+xlabel('Frequency (Hz)')
+ylabel('|Y(f)|')
+
+% Plot single-sided amplitude spectrum.
+subplot(413)
+plot(fhalf,abs(Y(1:nfft/2+1)))
+title('Single-Sided Amplitude Spectrum of y(t)')
+xlabel('Frequency (Hz)')
+ylabel('|Y(f)|')
+
+subplot(414)
+plot(fs_half,abs(Ys))
+title('Double-Sided Amplitude Spectrum of y(t)')
+xlabel('Frequency (Hz)')
+ylabel('|Y(f)|')
+
+return
+##### SOURCE END #####
+-->
+   </body>
+</html>

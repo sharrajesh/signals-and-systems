@@ -1,0 +1,34 @@
+% understanding about fftshift
+clear
+clc
+
+w=linspace(0,10);
+t=linspace(0,5);
+
+a01=3;
+a1=[1 a01];
+b1=[a01];
+
+h1=impulse(b1,a1,t);
+H1=a01./(a01+j*w);
+
+a02=1/3;
+a2=[1 a02];
+b2=[a02];
+
+h2=impulse(b2,a2,t);
+H2=a02./(a02+j*w);
+
+figure(1)
+clf
+subplot(211)
+plot(t,h1);
+subplot(212)
+plot(w,abs(H1));
+
+figure(2)
+clf
+subplot(211)
+plot(t,h2);
+subplot(212)
+plot(w,abs(H2));

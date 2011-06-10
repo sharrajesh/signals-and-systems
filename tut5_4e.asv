@@ -1,0 +1,16 @@
+% first run the tut5_4a.m and then tut5_4b and then tut5_4d.m
+
+N2=1000;
+w2=[0:N2-1].*2*pi/N2;
+
+H2=fft(h,N2);
+
+figure(4)
+clf
+
+subplot(211)
+plot(w2,abs(H2));
+
+subplot(212)
+plot(w2,abs(H2),'-',w,Hm,'o');
+return;

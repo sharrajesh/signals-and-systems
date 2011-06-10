@@ -1,0 +1,24 @@
+
+prob8_5c
+
+% since the signal x1,y1 and x2,y2 are defined at discrete time samples
+% we descretize it by considering x axis to be N
+% 
+% Since T is period for both x1 and x2 implies that both of them will be
+% periodic after N samples
+N=T/dt;
+k=[-N/2:N/2-1];
+
+
+% figure(2)
+% clf
+
+% subplot(211)
+% plot(t,x1,'r',t,y1,'b');
+% legend('x1','y1');
+% 
+% subplot(212)
+% plot(t,x2,'r',t,y2,'b');
+% legend('x2','y2');
+
+return

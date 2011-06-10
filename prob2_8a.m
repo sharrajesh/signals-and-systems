@@ -1,0 +1,15 @@
+n=27
+%n=20
+%del=0.25
+del=0.1
+t=[0:del:n]
+u=[ones(1,length(t))]
+x=exp(-2*t)
+y=conv(u,x)
+ny=[0:del:2*n]
+subplot(3,1,1)
+bar(t,x)
+subplot(3,1,2)
+bar(t,u)
+subplot(3,1,3)
+bar(ny,y)

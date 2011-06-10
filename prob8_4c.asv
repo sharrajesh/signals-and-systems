@@ -1,0 +1,39 @@
+
+prob8_4a
+
+% max number of bits we want to send
+N=20;
+
+% let yb stands for the arrays of bits we want to send
+yb1=ones(1,N);
+yb01=zeros(1,N);
+yb01(1:2:N)=1; % alternate ones and zeros
+
+% let us pick rate at which we want to send our signal
+fb=1/(2*T);
+y11=samples_from_bits(yb1,fb,dt,p); % do look at the function
+y011=samples_from_bits(yb01,fb,dt,p);
+
+% let us pick rate at which we want to send our signal
+fb=1/(T);
+y12=samples_from_bits(yb1,fb,dt,p); % do look at the function
+y012=samples_from_bits(yb01,fb,dt,p);
+
+figure(2)
+clf
+
+subplot(321)
+stem(y11);
+
+subplot(322) 
+stem(y12);
+
+subplot(323)
+eyediagram(y11,fb,dt);
+
+subplot(324)
+eyediagram(y011,fb,dt);
+
+
+return
+

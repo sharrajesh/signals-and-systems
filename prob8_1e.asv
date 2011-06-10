@@ -1,0 +1,17 @@
+
+% first run prob8_1b
+clc
+
+Ha=fftshift(fft(halpha,256));
+wa=linspace(-pi,pi,256);
+
+figure(5)
+clf
+
+subplot(211)
+plot(wa,abs(Ha));
+
+subplot(212)
+plot(wa,unwrap(angle(Ha)));
+
+return

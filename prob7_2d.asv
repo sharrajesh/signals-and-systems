@@ -1,0 +1,89 @@
+
+clc
+
+Ti=1/8;
+ti=[-2:Ti:2];
+
+% note that os is the sampling freq 
+os=2*pi*1/Ti;
+
+syms t 
+
+hbl_t=sin(os*t/2)/(os*t/2);
+hbl=subs(hbl_t,t,ti);
+hbl((length(ti)+1)/2)=1;
+
+hbl_s=subs(hbl_t,t,ts);
+hbls((length(ts)+1)/2)=1;
+
+hlin_t=1-abs(t)/2;
+hlin=subs(hlin_t,t,ti);
+hlins=subs(hlin_t,t,ts);
+
+figure(2)
+clf
+
+subplot(321)
+plot(ti,hbl);
+title('band limited reconstruction');
+
+subplot(322)
+ws=linspace(-pi,pi,length(ti));
+plot(ws,abs(fftshift(fft(hbl))));
+title('freq domain');
+
+subplot(323)
+plot(ti,hlin);
+title('linear reconstruction');
+
+subplot(324)
+plot(ts,hbls);
+title('band limited reconstruction');
+
+subplot(325)
+ws=linspace(-pi,pi,length(ti));
+plot(ws,abs(fftshift(fft(hbl))));
+title('freq domain');
+
+subplot(326)
+plot(ti,hlin);
+title('linear reconstruction');
+
+return 
+
+clear
+clc
+
+% time period for sampling i.e each sample is taken every 1/2 sec 
+% for 2 samples are taken every one sec i.e sampling freq is 2
+T=1/2;
+ts=[-4:T:4];
+
+syms t
+
+x1_t=cos(8*pi*t/5);
+
+x1=subs(x1_t,t,ts);
+
+% piece wise
+x2=zeros(size(ts));
+
+for i=1:length(ts)
+    t1=ts(i);
+    if (abs(t1)<=2)
+        x2(i)=1-abs(t1)/2;
+    else
+        x2(i)=0;
+    end
+end
+   
+figure(1)
+clf
+
+subplot(211)
+stem(ts,x1);
+
+subplot(212)
+stem(ts,x2);
+
+return;

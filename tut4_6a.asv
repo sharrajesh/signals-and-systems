@@ -1,0 +1,16 @@
+% understanding about fftshift
+clear
+clc
+
+load ctftmod.mat
+
+whos
+
+gr=4
+subplot(gr,1,1)
+plot(t,x);
+title('message x');
+
+subplot(gr,1,2)
+plot(t,dash);
+title('dash')

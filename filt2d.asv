@@ -1,0 +1,28 @@
+%rajesh
+%this is the function to compute 2 dimension filter
+%
+%here b and a are the filter coefficients same as in filter command
+%d is delay associated with the causal implementation which is n/2 where n
+%is the order
+function y=filt2d(b,a,d,x)
+[m,n]=size(x);
+
+%step1- for all the columns in x filter the input and store the output in z
+for col=1:n
+    xn=x(:,col);
+    xnd=[xn;zeros(d,1)];
+    ynd=filter(b,a,xnd);
+    yn=ynd(d+1:length(ynd));
+    z(:,col)=yn;
+end
+
+%step2- for all the rows in z filter the input and store the output in y
+for row=1:n
+    zn=x(row,:);
+    znd=[zn zeros(1,d)];
+    ynd=filter(b,a,xnd);
+    yn=ynd(d+1:length(ynd));
+    z(:,col)=yn;
+end
+
+return

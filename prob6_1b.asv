@@ -1,0 +1,25 @@
+clear
+clc
+
+%note that for k=1 and m=1 wn=1 and zeta=1/(2^(1/2))
+zeta=2^(-1/2);
+w
+
+a=[1 2*zeta*wn wn^2];
+b=[wn^2];
+
+return;
+
+b=[1]
+a=[1 3]
+t=[0:0.05:4]
+s=step(b,a,t)
+h=impulse(b,a,t)
+
+figure
+
+subplot(2,1,1)
+plot(t,s)
+subplot(2,1,2)
+plot(t,h)
+        

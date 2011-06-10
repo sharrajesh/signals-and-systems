@@ -1,0 +1,4 @@
+% using lsim to find frequency responce of the differential equation
+a1=[1 2]
+b1=[1 -2]
+a2=[1

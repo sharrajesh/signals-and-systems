@@ -1,0 +1,23 @@
+clear
+clc
+
+a=[6 -5 1];
+b=[1 -1];
+
+%note that num and denom are opposite of a and b
+num=[-1 1];
+den=[1 -5 6];
+
+[r p k]=residue(num,den);
+
+N=length(r);
+
+syms n w r
+
+Hn=sym('r(n)')/(exp(-j*w)-sym('p(n)'))
+
+H=symsum(xn,n,1,N);
+
+eval(H);
+
+return;

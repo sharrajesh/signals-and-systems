@@ -1,0 +1,23 @@
+
+clear
+clc
+
+b=[1 -1 0];
+zs=roots(b);
+
+a=[1 3 2];
+ps=roots(a);
+
+figure(1)
+clf
+
+subplot(211)
+plot(real(zs),imag(zs),'rO');
+
+subplot(212)
+plot(real(ps),imag(ps),'rX');
+
+
+
+return
+

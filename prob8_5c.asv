@@ -1,0 +1,18 @@
+
+prob8_5b
+
+% note that here modulation index m=kf*A/wm
+m=A/wm;
+
+% by p614
+y1=cos(wm*t+m*sin(wm*t));
+
+figure(1)
+clf
+
+subplot(211)
+plot(t,x1,'r');
+hold on;
+plot(t,y1,'b');
+legend('
+return

@@ -1,0 +1,34 @@
+% first run prob6_3a.m
+
+% first shift the filter H to left and right by 5pi/10 
+w21=-5*pi/10;
+% note here that in exp we are using n1 and for h we are using L
+h21=exp(j*w21*n1).*h(L);
+H21=fftshift(fft(h21, 1024));
+
+w22=5*pi/10;
+h22=exp(j*w22*n1).*h(L);
+H22=fftshift(fft(h22, 1024));
+
+H2m=(abs(H11)+abs(H12)+abs(H13)+abs(H14));
+H1a=angle(DEL)-(angle(H11)+angle(H12)+angle(H13)+angle(H14));
+
+figure(2)
+clf
+
+subplot(411)
+plot(w,abs(H11),'r',w,abs(H12),'b',w,abs(H13),'g',w,abs(H14),'m');
+title('magnitude of shifted frequency responces')
+
+subplot(412)
+plot(w,abs(DEL));
+title('magnitude of FT of impulse responce')
+
+subplot(413)
+plot(w,abs(H1m));
+title('magnitude of HP filter')
+
+subplot(414)
+plot(w,H1a);
+title('phase of HP filter')
+return

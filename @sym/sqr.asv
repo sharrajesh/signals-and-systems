@@ -1,0 +1,11 @@
+%rajesh: this function takes the number and return its sign
+function x=sqr(t)
+if k>s0
+    x=1;
+elseif k==0
+    x=0;
+elseif k<0
+    x=-1;
+end
+end
+    

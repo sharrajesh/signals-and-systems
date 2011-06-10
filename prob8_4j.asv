@@ -1,0 +1,22 @@
+
+prob8_4h
+
+% impulse reponse of the channel
+h1=hamming(41)'.*sinc((t(1:41)-2*T)*
+
+% lets get y5 from the previous sample
+y5=y;
+y=conv(y,p);
+
+t=[0:dt:(length(y)-1)*dt];
+
+figure(3)
+clf
+
+subplot(211)
+stem(t,y);
+
+subplot(212)
+eyediagram(y,fb,dt)
+
+return

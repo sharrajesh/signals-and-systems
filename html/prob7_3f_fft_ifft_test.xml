@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mscript xmlns:mwsh="http://www.mathworks.com/namespace/mcode/v1/syntaxhighlight.dtd">
+   <version>7.7</version>
+   <date>2010-01-09</date>
+   <cell>
+      <count>1</count>
+      <mcode>% first run prob7_3a b c d.m
+clear
+clc
+
+nr=[-52:124];
+
+syms n
+
+% see table 5.2 page 392 oppenheim book
+% to get X(jw) as 1 for 0&lt;|w|&lt;W and 0 else where
+W=pi/2;
+x1_n=(W/pi)*sinc(W/pi*n);
+
+% note that x1 is defined for -52&lt;=n&lt;=124
+x1=subs(x1_n,n,nr);
+
+% to cover us for nan values
+nan=find(isnan(x1));
+x1(nan)=1;
+
+N=2048;
+wk=[0:N-1]*2*pi/N;
+
+% note here fft was calculated for N=2048 hence it is defines
+% N*ak for -52&lt;=k&lt;=-52+N-1
+X1=fft(x1,N);
+
+% test of fft and ifft
+% since X1 define N*ak for -52&lt;=k&lt;=-52+2048 hence ifft should define x(n)
+% for -52&lt;=n&lt;=-52+N-1
+x1i=ifft(X1);
+
+% note that X1i should be same as X1
+X1i=fft(x1i,N);
+
+figure(1)
+clf
+
+subplot(711)
+plot(nr,x1);
+title('nr against x1');
+
+subplot(712)
+plot(wk,abs(X1));
+title('abs of X1 over wk for 0 to 2*pi but N*ak for -52&lt;=k&lt;=-52+N-1');
+
+subplot(713)
+plot(wk,unwrap(angle(X1)));
+title('unwrapped angle for X1 over wk for 0 to 2*pi but N*ak for -52&lt;=k&lt;=-52+N-1');
+
+subplot(714)
+plot(wk,abs(X1i));
+title('abs of X1i');
+
+subplot(715)
+plot(wk,unwrap(angle(X1i)));
+title('unwrapped angle for X1i');
+
+subplot(716)
+plot([-52:-52+N-1],x1i); %careful here
+title('ifft of X1 but over 2048 values starting from -52');
+
+subplot(717)
+plot(nr,x1i(1:length(x1))); %careful here
+title('ifft of X1 but over only length of x1');
+
+return</mcode>
+      <mcode-xmlized>
+         <mwsh:code xml:space="preserve"><mwsh:comments xml:space="preserve">% first run prob7_3a b c d.m</mwsh:comments>
+clear
+clc
+
+nr=[-52:124];
+
+syms <mwsh:strings xml:space="preserve">n</mwsh:strings>
+
+<mwsh:comments xml:space="preserve">% see table 5.2 page 392 oppenheim book</mwsh:comments>
+<mwsh:comments xml:space="preserve">% to get X(jw) as 1 for 0&lt;|w|&lt;W and 0 else where</mwsh:comments>
+W=pi/2;
+x1_n=(W/pi)*sinc(W/pi*n);
+
+<mwsh:comments xml:space="preserve">% note that x1 is defined for -52&lt;=n&lt;=124</mwsh:comments>
+x1=subs(x1_n,n,nr);
+
+<mwsh:comments xml:space="preserve">% to cover us for nan values</mwsh:comments>
+nan=find(isnan(x1));
+x1(nan)=1;
+
+N=2048;
+wk=[0:N-1]*2*pi/N;
+
+<mwsh:comments xml:space="preserve">% note here fft was calculated for N=2048 hence it is defines</mwsh:comments>
+<mwsh:comments xml:space="preserve">% N*ak for -52&lt;=k&lt;=-52+N-1</mwsh:comments>
+X1=fft(x1,N);
+
+<mwsh:comments xml:space="preserve">% test of fft and ifft</mwsh:comments>
+<mwsh:comments xml:space="preserve">% since X1 define N*ak for -52&lt;=k&lt;=-52+2048 hence ifft should define x(n)</mwsh:comments>
+<mwsh:comments xml:space="preserve">% for -52&lt;=n&lt;=-52+N-1</mwsh:comments>
+x1i=ifft(X1);
+
+<mwsh:comments xml:space="preserve">% note that X1i should be same as X1</mwsh:comments>
+X1i=fft(x1i,N);
+
+figure(1)
+clf
+
+subplot(711)
+plot(nr,x1);
+title(<mwsh:strings xml:space="preserve">'nr against x1'</mwsh:strings>);
+
+subplot(712)
+plot(wk,abs(X1));
+title(<mwsh:strings xml:space="preserve">'abs of X1 over wk for 0 to 2*pi but N*ak for -52&lt;=k&lt;=-52+N-1'</mwsh:strings>);
+
+subplot(713)
+plot(wk,unwrap(angle(X1)));
+title(<mwsh:strings xml:space="preserve">'unwrapped angle for X1 over wk for 0 to 2*pi but N*ak for -52&lt;=k&lt;=-52+N-1'</mwsh:strings>);
+
+subplot(714)
+plot(wk,abs(X1i));
+title(<mwsh:strings xml:space="preserve">'abs of X1i'</mwsh:strings>);
+
+subplot(715)
+plot(wk,unwrap(angle(X1i)));
+title(<mwsh:strings xml:space="preserve">'unwrapped angle for X1i'</mwsh:strings>);
+
+subplot(716)
+plot([-52:-52+N-1],x1i); <mwsh:comments xml:space="preserve">%careful here</mwsh:comments>
+title(<mwsh:strings xml:space="preserve">'ifft of X1 but over 2048 values starting from -52'</mwsh:strings>);
+
+subplot(717)
+plot(nr,x1i(1:length(x1))); <mwsh:comments xml:space="preserve">%careful here</mwsh:comments>
+title(<mwsh:strings xml:space="preserve">'ifft of X1 but over only length of x1'</mwsh:strings>);
+
+<mwsh:keywords xml:space="preserve">return</mwsh:keywords></mwsh:code></mcode-xmlized>
+      <mcode-count>1</mcode-count>
+      <cellOutputTarget>1</cellOutputTarget>
+      <img src="prob7_3f_fft_ifft_test_01.png"/>
+   </cell>
+   <originalCode>% first run prob7_3a b c d.m&#xD;
+clear&#xD;
+clc&#xD;
+&#xD;
+nr=[-52:124];&#xD;
+&#xD;
+syms n&#xD;
+&#xD;
+% see table 5.2 page 392 oppenheim book&#xD;
+% to get X(jw) as 1 for 0&lt;|w|&lt;W and 0 else where&#xD;
+W=pi/2;&#xD;
+x1_n=(W/pi)*sinc(W/pi*n);&#xD;
+&#xD;
+% note that x1 is defined for -52&lt;=n&lt;=124&#xD;
+x1=subs(x1_n,n,nr);&#xD;
+&#xD;
+% to cover us for nan values&#xD;
+nan=find(isnan(x1));&#xD;
+x1(nan)=1;&#xD;
+&#xD;
+N=2048;&#xD;
+wk=[0:N-1]*2*pi/N;&#xD;
+&#xD;
+% note here fft was calculated for N=2048 hence it is defines&#xD;
+% N*ak for -52&lt;=k&lt;=-52+N-1&#xD;
+X1=fft(x1,N);&#xD;
+&#xD;
+% test of fft and ifft&#xD;
+% since X1 define N*ak for -52&lt;=k&lt;=-52+2048 hence ifft should define x(n)&#xD;
+% for -52&lt;=n&lt;=-52+N-1&#xD;
+x1i=ifft(X1);&#xD;
+&#xD;
+% note that X1i should be same as X1&#xD;
+X1i=fft(x1i,N);&#xD;
+&#xD;
+figure(1)&#xD;
+clf&#xD;
+&#xD;
+subplot(711)&#xD;
+plot(nr,x1);&#xD;
+title('nr against x1');&#xD;
+&#xD;
+subplot(712)&#xD;
+plot(wk,abs(X1));&#xD;
+title('abs of X1 over wk for 0 to 2*pi but N*ak for -52&lt;=k&lt;=-52+N-1');&#xD;
+&#xD;
+subplot(713)&#xD;
+plot(wk,unwrap(angle(X1)));&#xD;
+title('unwrapped angle for X1 over wk for 0 to 2*pi but N*ak for -52&lt;=k&lt;=-52+N-1');&#xD;
+&#xD;
+subplot(714)&#xD;
+plot(wk,abs(X1i));&#xD;
+title('abs of X1i');&#xD;
+&#xD;
+subplot(715)&#xD;
+plot(wk,unwrap(angle(X1i)));&#xD;
+title('unwrapped angle for X1i');&#xD;
+&#xD;
+subplot(716)&#xD;
+plot([-52:-52+N-1],x1i); %careful here &#xD;
+title('ifft of X1 but over 2048 values starting from -52');&#xD;
+&#xD;
+subplot(717)&#xD;
+plot(nr,x1i(1:length(x1))); %careful here &#xD;
+title('ifft of X1 but over only length of x1');&#xD;
+&#xD;
+return &#xD;
+</originalCode>
+   <m-file>prob7_3f_fft_ifft_test</m-file>
+   <filename>C:\svn\depot\matlab\signals_and_systems\prob7_3f_fft_ifft_test.m</filename>
+   <outputdir>C:\svn\depot\matlab\signals_and_systems\html</outputdir>
+</mscript>

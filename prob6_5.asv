@@ -1,0 +1,16 @@
+clear
+clc
+
+p=hamming(75);
+l=length(p);
+w=[0:l-1]*2*pi/l;
+P=fft(p,'whole');
+
+figure(1)
+clf
+
+subplot(211)
+plot([1:l],p);
+grid
+
+return

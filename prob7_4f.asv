@@ -1,0 +1,50 @@
+% first run prob7_4ab d e.m
+
+clc
+
+% since ym was sampled at fs=8192, hence to sample ym at 2048 we have to
+% downsample is by the factor of 8192/2048
+fsd=2048
+M=8192/2048;
+
+ym2=ym(1:M:length(ym));
+Ym2=fftshift(fft(ym2,2048));
+
+return 
+
+% first run prob7_4ab d.m
+
+clc
+
+% note that fft returns information between 0 and fs
+% and shifted fft returns information between -fs/2 to fs/2
+% to get the correct cut off freq
+% cut freq
+fc=1000;
+wc=fc/(fs/2);
+
+% impulse responce of filter with above wc is
+h=wc*sinc([-16:16]*wc).*hamming(33)';
+
+ym=filter(h,1,xm);
+
+Ym=fftshift(fft(ym,fs));
+
+sound(ym,1/T);
+
+figure(4);
+clf
+
+subplot(311)
+plot(h);
+xlabel('filter impulse resonce');
+
+subplot(312)
+plot(wh,abs(Ym));
+xlabel('x axis in hertz');
+
+subplot(313)
+plot(wrps,abs(Ym));
+xlabel('x axis radians per sec');
+
+return

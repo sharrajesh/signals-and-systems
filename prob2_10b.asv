@@ -1,0 +1,12 @@
+load lineup.na
+N=1000
+a=[1 zeros(1,N-2) 0.5]
+b=[1]
+n=[0:1000]
+% better way to build an impulse
+del=[1 zeros(1,length(n)-1)]
+h=filter(b,a,del)
+
+figure
+plot(n,h)
+         

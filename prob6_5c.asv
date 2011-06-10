@@ -1,0 +1,12 @@
+%run prob6_5a.m
+
+w1=pi/4;
+w2=pi*2/4;
+w3=pi*3/4;
+
+n=[1:75];
+
+s1=pcos(w1*n);
+s2=
+
+return;

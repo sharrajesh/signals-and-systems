@@ -1,0 +1,24 @@
+% first run the tut5_4a.m
+% N=9;
+% w=[-N/2:N/2].*2*pi/N;
+n0=(N-1)/2;
+Hp=-w.*n0;
+
+% Hm=periodic(H,-(N+1)/2,0,N);
+% ws=[0:N].*2*pi/N;
+
+figure(2)
+clf
+
+subplot(211)
+plot(w,Hp);
+ro=axis; %range original
+new=[-3*pi 3*pi ro(3:4)];
+grid
+
+% subplot(212)
+% stem(ws,Hm);
+% axis(range)
+% grid
+
+return;

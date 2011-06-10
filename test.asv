@@ -1,0 +1,16 @@
+
+syms n0
+x_n0=(0.5)^n0;
+n=[1:50];
+
+wpp=linspace(-pi,pi,length(n));
+w02p=linspace(0,2*pi,length(n));
+
+x=subs(x_n0,n0,n);
+X=fft(x);
+
+subplot(311)
+plot(n,x);
+
+subplot(312)
+plot(wpp,abs(

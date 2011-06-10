@@ -1,0 +1,46 @@
+
+prob8_4a
+
+% max number of bits we want to send
+N=20;
+
+% random seq of 0 and 1 bits
+yb01r=rand(1,N) > 0.5;
+
+% let us pick rate at which we want to send our signal
+fb1=1/(2*T);
+y01r1=samples_from_bits(yb01r,fb1,dt,p);
+
+% let us pick rate at which we want to send our signal
+fb2=1/(T);
+y01r2=samples_from_bits(yb01r,fb1,dt,p);
+
+figure(2)
+clf
+
+subplot(421)
+stem(y11);
+
+subplot(422) 
+stem(y12);
+
+subplot(423)
+eyediagram(y11,fb1,dt);
+
+subplot(424)
+eyediagram(y12,fb1,dt);
+
+subplot(425)
+stem(y011);
+
+subplot(426) 
+stem(y012);
+
+subplot(427)
+eyediagram(y011,fb2,dt);
+
+subplot(428)
+eyediagram(y012,fb2,dt);
+
+return
+

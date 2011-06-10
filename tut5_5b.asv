@@ -1,0 +1,13 @@
+X=fft(x);
+
+Y=fft(y);
+
+figure(2)
+
+subplot(211)
+plot(r,x);
+
+subplot(212)
+plot(r,y)
+
+return;

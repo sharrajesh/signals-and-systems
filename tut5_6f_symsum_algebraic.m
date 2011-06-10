@@ -1,0 +1,29 @@
+%symsum create algebraic expression
+clear
+clc
+
+a=[36 -33 10 -1];
+b=[0 39 -21 3];
+
+%note that num and denom are opposite of a and b
+num=[3 -21 39 0];
+den=[-1 10 -33 36];
+
+[r p k]=residue(num,den);
+r
+p
+k
+
+%here p has a repeating root
+
+N=length(r);
+
+syms w
+
+Hs=r(1)/(exp(-j*w)-p(1))+r(2)/(exp(-j*w)-p(2))+r(3)/(exp(-j*w)-p(3))^2
+
+H=eval(Hs);
+
+H
+
+return;

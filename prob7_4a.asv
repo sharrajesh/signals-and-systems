@@ -1,0 +1,41 @@
+
+clear
+clc
+
+% sampling frequency
+fs=8192;
+% time period of each sample
+T=1/fs;
+
+% since t varies between 0 and t0
+t0=0.5;
+t=linspace(0,t0,t0/T);
+
+% band of frequencies on which signal is spread across
+fmin=2000;
+omegamin=2*pi*fmin;
+fmax=3000;
+omegamax=2*pi*fmax;
+
+syms t_s
+x_t_s = cos(omegamin*t_s+(omegamax-omegamin)*(t_s^2)*1/(2*t0));
+omega_inst_t_s=omegamin+(omegamax-omegamin)*t_s/t0;
+
+x=subs(x_t_s,t_s,t);
+omega_inst=subs(omega_inst_t_s,t_s,t);
+
+sound(x,1/T);
+
+X=fftshift(fft(x,fs));
+w=linspace(-pi,pi/T,fs);
+
+figure(1);
+clf
+
+subplot(211)
+plot(t,omega_inst);
+
+subplot(212)
+plot(w,abs(X));
+
+return
